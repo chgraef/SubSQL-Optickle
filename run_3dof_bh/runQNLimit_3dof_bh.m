@@ -132,10 +132,8 @@ k=10;
 parms.zpk_SUS=zpk(z,p,k);
 
 
-%% Bal. homodyne detection parameters
 
-% lo phase shifter position offset in deg
-parms.LO_Phase = 0.000001 
+
 % overwrite optical losses with locally def'd values
 myLoss=50E-6;
 parms.Optics.IMx.L=myLoss;%ps.IM.L;
@@ -143,11 +141,15 @@ parms.Optics.IMy.L=myLoss;%ps.IM.L;
 parms.Optics.EMx.L=myLoss;%ps.EM.L;
 parms.Optics.EMy.L=myLoss;%ps.EM.L;
 parms.Optics.BS.L=ps.BS.L;
+
+%% Bal. homodyne detection parameters
+
 % lo pickoff bs transmission
-parms.LO_PickOff_Trans = 0.001
+parms.LO_PickOff_Trans = 0.1
 % dark fringe offset at the main BS in rad
 parms.Optics.BS.phi=0*(2*pi/360);
-
+% lo phase shifter position offset in deg
+parms.LO_Phase = 84
 
 %% Do some analyses with the model
 
@@ -182,9 +184,11 @@ n1 = noiseAC(pidx.nPD_Homo1, :)'
 
 % plot the data
 figure
-loglog(f, abs(n1 ./ h1),'LineWidth',2,'Color','r')
+loglog(f, abs(n1),'LineWidth',2,'Color','r')
 hold 
-loglog(f, abs(n2 ./ h2),'LineWidth',2,'Color','b')
+loglog(f, abs(n2),'LineWidth',2,'Color','b')
+loglog(f, abs(n2-n1), 'LineWidth',2,'Color','c')
+loglog(f, sqrt((n2-n1).^2 + (n2+n1).^2) ,'LineWidth',2,'Color','m')
 
 %ylim([1E-21 1E-13]);
 xlim([5E0 5E3]);
@@ -192,6 +196,6 @@ xlim([1E-1 1E5])
 xlabel('Frequency [Hz]');
 ylabel('Displacement m/sqrt(Hz)')
 title('Sub-SQL IFO Quantum Noise Limit', 'fontsize', 14);
-legend('homo1','homo2')
+legend('noise PD1','noise PD2', 'noise PD2-PD1', 'w/o cross terms')
 grid
 
