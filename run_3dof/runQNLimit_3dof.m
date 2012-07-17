@@ -140,8 +140,8 @@ parms.Optics.EMx.L=ps.EM.L;
 parms.Optics.EMy.L=ps.EM.L;
 parms.Optics.BS.L=ps.BS.L;
 
-% dark fringe offset at the main BS in rad
-parms.Optics.BS.phi=2*(2*pi/360);
+% dark fringe offset at the main BS in deg
+parms.Optics.BS.phi=2;
 
 
 %% Do some analyses with the model

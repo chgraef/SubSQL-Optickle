@@ -140,8 +140,8 @@ parms.Optics.EMx.L=ps.EM.L;
 parms.Optics.EMy.L=ps.EM.L;
 parms.Optics.BS.L=ps.BS.L;
 
-% dark fringe offset at the main BS in rad
-parms.Optics.BS.phi=2*(2*pi/360);
+% dark fringe offset at the main BS in deg
+parms.Optics.BS.phi=2;
 
 
 %% Do some analyses with the model
@@ -178,7 +178,7 @@ s.pos_end(didx.nEMx) = s.stop;
 s.pos_end(didx.nEMy) = -s.stop;
 
 % perform the sweep
-[pos, sigDC, fDC] = sweepLinear(opt, s.pos_start, s.pos_end, 500);
+[pos, sigDC, fDC] = sweepLinear(opt, s.pos_start, s.pos_end, 50000);
 
 figure(1)
 subplot(1,2,1)
